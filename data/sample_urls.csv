@@ -1,0 +1,7 @@
+url,label
+https://www.google.com,legitimate
+https://www.wikipedia.org,legitimate
+https://www.python.org,legitimate
+http://secure-login.example.com/verify,phishing
+http://account-update.example.org/login,phishing
+http://verify-payment.example.net,phishing

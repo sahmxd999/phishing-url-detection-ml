@@ -1,7 +1,7 @@
 # Machine Learning-Based Phishing URL Detection System
 
 ## Project Status
-**Version:** Pre-Hard Stop 3 Baseline  
+**Version:** Hard Stop 3 Early Implementation Validation  
 **Purpose:** Establish a reproducible and runnable implementation baseline for CISC 699.
 
 This repository contains the initial engineering skeleton for a local phishing URL
@@ -184,3 +184,91 @@ This academic prototype excludes:
 ## Academic Integrity
 
 AI-supported assistance is documented in `AI_USAGE_LOG.md`.
+
+
+
+## Hard Stop 3 - Early Implementation Validation
+
+**Date:** October 9, 2026
+
+### Implementation Status
+
+The project has progressed beyond the initial
+implementation skeleton. The current Python
+pipeline supports CSV dataset loading, URL
+validation, basic lexical feature extraction,
+and execution of the placeholder prediction stage.
+
+### Validated Components
+
+- Streamlit application starts successfully.
+- CSV loader reads six synthetic sample URLs.
+- URL validation filters malformed inputs.
+- Feature extraction produces seven numerical features.
+- Integration test passes using pytest.
+- Full baseline workflow processes six sample URLs.
+- All six records reach the placeholder prediction stage.
+
+### Validation Results
+
+- Sample dataset: data/sample_urls.csv
+- Records processed: 6
+- Features extracted per URL: 7
+- Integration test result: 1 passed
+- Full baseline workflow: Completed
+
+These results demonstrate basic technical
+functionality, not phishing detection accuracy.
+
+### Reproduce the Validation
+
+From the project root, activate the virtual
+environment and install the dependencies:
+
+    python -m venv venv
+    .\venv\Scripts\Activate.ps1
+    python -m pip install -r requirements.txt
+
+Run the Streamlit application:
+
+    python -m streamlit run app/main.py
+
+Run the integration test:
+
+    python -m pytest tests/test_pipeline_integration.py -v -s
+
+### Current Limitations
+
+- The sample dataset contains synthetic records.
+- Model training is not implemented.
+- Logistic Regression, Decision Tree, and
+  Random Forest models are pending.
+- The prediction module currently returns
+  an operational status message.
+- Classification accuracy, precision, recall,
+  F1-score, and false-positive rate have
+  not yet been measured.
+- Dataset labels and preprocessing require
+  further validation using real labeled data.
+
+### Next Implementation Priorities
+
+1. Acquire and profile a public labeled URL dataset.
+2. Validate label encoding and dataset quality.
+3. Implement the model training workflow.
+4. Evaluate trained models using held-out data.
+5. Connect model predictions to the Streamlit UI.
+6. Expand automated tests and performance reporting.
+
+### Validation Evidence
+
+Evidence screenshots are stored in
+the screenshots/ folder:
+
+- HS3_Data_Loading_Success.png
+- HS3_Feature_Extraction_Success.png
+- HS3_Pipeline_Integration_Passed.png
+- HS3_Full_Baseline_Workflow.png
+
+These filenames refer to evidence that must be
+saved in the repository before final submission.
