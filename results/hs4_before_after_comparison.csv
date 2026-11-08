@@ -1,0 +1,4 @@
+model,before_accuracy,after_accuracy,change_percentage_points
+Logistic Regression,0.76875,0.728,-4.075000000000006
+Decision Tree,0.807,0.82725,2.024999999999999
+Random Forest,0.8195,0.847,2.749999999999997

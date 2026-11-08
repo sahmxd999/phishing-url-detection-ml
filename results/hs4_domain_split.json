@@ -1,0 +1,18 @@
+{
+  "accuracy": 0.8538708199725149,
+  "precision": 0.8551380715255772,
+  "recall": 0.8559130040779338,
+  "f1": 0.8555253623188406,
+  "false_positive_rate": 0.14821676702176934,
+  "true_negative": 1839,
+  "false_positive": 320,
+  "false_negative": 318,
+  "true_positive": 1889,
+  "training_rows": 15634,
+  "testing_rows": 4366,
+  "training_phishing": 7793,
+  "testing_phishing": 2207,
+  "shared_hostnames": 0,
+  "random_seed": 42,
+  "split_method": "GroupShuffleSplit by parsed hostname"
+}

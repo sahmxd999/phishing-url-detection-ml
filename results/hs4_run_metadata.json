@@ -1,0 +1,19 @@
+{
+  "python_version": "3.11.9",
+  "sklearn_version": "1.9.1",
+  "random_seed": 42,
+  "sample_size": 20000,
+  "training_rows": 16000,
+  "testing_rows": 4000,
+  "features": [
+    "url_length",
+    "hostname_length",
+    "path_length",
+    "dot_count",
+    "hyphen_count",
+    "digit_count",
+    "uses_https"
+  ],
+  "dataset": "data\\processed\\phishing_binary.csv",
+  "experiment": "Balanced 20,000-row exploratory comparison"
+}
