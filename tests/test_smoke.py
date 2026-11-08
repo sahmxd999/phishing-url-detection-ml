@@ -1,6 +1,6 @@
 from src.data_pipeline import validate_url
 from src.feature_extraction import extract_placeholder_features
-from src.prediction import placeholder_predict
+from src.prediction import predict_url
 
 
 def test_baseline_pipeline_runs():
@@ -12,5 +12,6 @@ def test_baseline_pipeline_runs():
     assert isinstance(features, dict)
     assert features["url_length"] > 0
 
-    result = placeholder_predict(features)
-    assert "Baseline system operational" in result
+    result = predict_url(features)
+    assert isinstance(result, str)
+    assert result.startswith(("PHISHING -", "LEGITIMATE -"))

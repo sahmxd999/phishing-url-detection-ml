@@ -10,7 +10,7 @@ import streamlit as st
 
 from src.data_pipeline import validate_url
 from src.feature_extraction import extract_placeholder_features
-from src.prediction import placeholder_predict
+from src.prediction import predict_url
 
 st.set_page_config(
     page_title="Phishing URL Detection System",
@@ -18,13 +18,23 @@ st.set_page_config(
     layout="centered",
 )
 
+
 st.title("Machine Learning-Based Phishing URL Detection System")
-st.caption("Pre-Hard Stop 3 implementation baseline")
+
+st.caption("Hard Stop 5 - Trained Random Forest Prototype")
 
 st.write(
-    "This baseline demonstrates the initial runnable application shell. "
-    "The final machine-learning models will be integrated in later sprints."
+    "This application uses a trained Random Forest classifier "
+    "to analyze seven lexical URL features and classify URLs "
+    "as potentially phishing or legitimate."
 )
+
+st.warning(
+    "Research prototype only. Predictions may contain false "
+    "positives or false negatives and should not be used "
+    "as a definitive website safety assessment."
+)
+
 
 url = st.text_input("Enter a URL", placeholder="https://example.com")
 
@@ -33,6 +43,6 @@ if st.button("Analyze URL"):
         st.error("Please enter a valid URL beginning with http:// or https://")
     else:
         features = extract_placeholder_features(url)
-        result = placeholder_predict(features)
+        result = predict_url(features)
         st.success(result)
-        st.info("Baseline pipeline executed successfully.")
+        st.info("Random Forest model inference completed.")

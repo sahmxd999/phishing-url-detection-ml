@@ -6,7 +6,7 @@ __pycache__/
 # Virtual environments
 venv/
 .venv/
-
+venv_clean/
 # IDE
 .vscode/
 .idea/
@@ -26,3 +26,4 @@ screenshots/*
 !data/processed/.gitkeep
 !models/.gitkeep
 !screenshots/.gitkeep
+!models/random_forest.joblib

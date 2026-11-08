@@ -102,3 +102,145 @@ uses a clearly labeled placeholder prediction stage.
 The placeholder confirms that the core execution path
 was reached, but must not be presented as an actual
 phishing classification.
+
+
+## Hard Stop 4 — Technical Evidence Review
+Date: October 26, 2026
+Project: Machine Learning-Based Phishing URL Detection System
+
+### Evidence Collected
+
+- Original dataset: 651,191 URL records.
+- Cleaned binary dataset: 522,160 unique URLs.
+- Legitimate URLs: 428,074.
+- Phishing URLs: 94,086.
+- Duplicate URLs remaining: 0.
+- Conflicting URL labels detected in original data: 6 URLs.
+- URL parsing failures: 17, all phishing-labeled.
+- Automated regression tests: 2 passed in 1.08 seconds.
+
+### Model Benchmark Results
+
+Balanced dataset experiment:
+- 20,000 URLs; 16,000 training and 4,000 testing.
+- Logistic Regression accuracy: 72.80%.
+- Decision Tree accuracy: 82.73%.
+- Random Forest accuracy: 84.70%.
+- Random Forest F1-score: 84.68%.
+- Random Forest false-positive rate: 15.15%.
+
+Natural-distribution experiment:
+- Random Forest accuracy: 89.93%.
+- Precision: 83.13%.
+- Phishing recall: 55.34%.
+- F1-score: 66.45%.
+- False-positive rate: 2.47%.
+- False negatives: 322 out of 721 phishing test URLs.
+
+### Updated Issues and Risks
+
+I-01 — Model Training
+Status: Partially resolved.
+Three baseline classifiers were trained and compared successfully.
+Remaining: Independent evaluation, model versioning, and final validation.
+
+I-02 — Prediction Integration
+Status: Open.
+The Streamlit application still uses a placeholder prediction stage.
+Action: Integrate a validated, saved classifier.
+
+R-01 — Dataset Quality
+Status: Partially mitigated.
+Duplicates and conflicting labels were addressed during preprocessing.
+Remaining: URL-format validation, dataset provenance, and leakage analysis.
+
+R-02 — Class Imbalance
+Status: Open — High priority.
+Natural-distribution evaluation produced 55.34% phishing recall.
+Action: Evaluate class weighting and alternative decision thresholds.
+
+R-03 — False Positives and False Negatives
+Status: Open — High priority.
+The natural-distribution test produced 81 false positives and
+322 false negatives.
+Action: Analyze misclassified URLs and improve phishing recall.
+
+R-04 — Environment Compatibility
+Status: Monitoring.
+Python 3.11.9 and scikit-learn 1.9.1 were used successfully.
+Existing automated tests passed.
+
+R-05 — Overfitting and Data Leakage
+Status: Open — High priority.
+Current experiments use random URL-level splitting.
+Action: Evaluate domain overlap and implement domain-aware separation.
+
+R-06 — Malformed URL Parsing
+Status: Open.
+Seventeen records caused parsing failures.
+The current fallback prevents crashes but returns empty parsed components.
+Action: Record rejected cases and improve parsing validation.
+
+### Priority Decisions
+
+P0: Investigate low phishing recall and domain leakage.
+P0: Perform independent held-out evaluation.
+P1: Document malformed-URL handling and negative-case tests.
+P1: Save and version the selected trained model.
+P1: Integrate actual model inference into Streamlit.
+P2: Improve optional user-interface appearance.
+
+### Review and Exit Criteria
+
+Owner: Student developer — Salman Ahmed.
+Reviewer: Dr. Shaalan (review pending).
+
+- Dataset-quality report saved and reproducible.
+- Evaluation methods and model parameters documented.
+- False positives and false negatives analyzed.
+- Domain-aware evaluation completed or explicitly documented as pending.
+- Selected model saved and independently loadable.
+- Streamlit prediction integration verified with automated tests.
+
+Supervisor review decision: Pending.
+Final model acceptance: Not yet earned.
+Production readiness: Not claimed.
+
+
+### Hard Stop 4 — Hostname-Separated Evaluation Update
+Date: October 26, 2026
+
+Evidence:
+- Original random-split hostname overlap: 37.7% of test URLs.
+- Shared hostnames in random split: 721.
+- Hostname-separated training records: 15,634.
+- Hostname-separated testing records: 4,366.
+- Shared exact hostnames after grouping: 0.
+
+Random Forest performance:
+- Accuracy: 85.39%.
+- Precision: 85.51%.
+- Phishing recall: 85.59%.
+- F1-score: 85.55%.
+- False-positive rate: 14.82%.
+- False positives: 320.
+- False negatives: 318.
+
+Decision:
+Exact-hostname overlap was eliminated in this experiment.
+This reduces one potential source of evaluation leakage.
+
+Remaining limitations:
+- Registered-domain overlap has not been checked.
+- GroupShuffleSplit does not guarantee stratified labels.
+- Natural-distribution phishing recall remains low.
+- Independent final model acceptance remains pending.
+
+Owner: Student developer.
+Supervisor review: Pending.
+
+Next exit test:
+Evaluate using registered-domain grouping and representative
+class proportions, with recorded confusion matrices.
+
+

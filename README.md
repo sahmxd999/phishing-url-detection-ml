@@ -1,274 +1,275 @@
+
 # Machine Learning-Based Phishing URL Detection System
 
 ## Project Status
-**Version:** Hard Stop 3 Early Implementation Validation  
-**Purpose:** Establish a reproducible and runnable implementation baseline for CISC 699.
+**Course:** CISC 699 Applied Project  
+**Milestone:** Hard Stop 5 — Artifact Hardening and Reproducibility Check  
+**Student:** Salman Ahmed  
+**Institution:** Harrisburg University of Science and Technology
 
-This repository contains the initial engineering skeleton for a local phishing URL
-classification prototype built with Python and Streamlit.
+This is a local Python and Streamlit research prototype that uses machine learning to classify URLs as potentially phishing or legitimate.
 
-## Current Baseline Capabilities
+The project is experimental and is not intended to provide definitive website safety decisions.
 
-- Runs as a local Streamlit application.
-- Accepts a URL through a simple user interface.
-- Performs minimal URL validation.
-- Extracts basic lexical placeholder features.
-- Executes the full baseline path from input to placeholder prediction.
-- Includes an automated smoke test.
-- Includes architecture, risk, issue, engineering, and AI-use documentation.
+## System Overview
 
-> The baseline does **not** claim to perform trained phishing classification yet.
+The project includes:
 
-## Planned Machine-Learning Models
+- A public labeled URL dataset
+- Dataset preparation and cleaning
+- Seven lexical URL features
+- Logistic Regression, Decision Tree, and Random Forest classifiers
+- Model evaluation and comparison
+- A saved Random Forest model
+- A Streamlit interface for URL classification
+- Automated tests and reproducibility documentation
+
+## Prerequisites
+
+- Windows computer
+- Python 3.11.9
+- Internet access for installing Python packages
+- Sufficient disk space for the dataset and dependencies
+- No GPU required for the demonstrated baseline
+
+## Environment Versions
+
+The following versions were verified on November 8, 2026:
+
+| Component | Version |
+|---|---|
+| Python | 3.11.9 |
+| Streamlit | 1.65.0 |
+| Scikit-learn | 1.9.1 |
+| Pandas | 3.0.6 |
+| NumPy | 2.4.6 |
+| Joblib | 1.6.0 |
+| Pytest | 9.1.1 |
+
+Additional dependencies are listed in `requirements.txt`.
+
+## Installation
+
+Open PowerShell in the project's root directory.
+
+Create a virtual environment:
+
+```powershell
+py -3.11 -m venv venv
+```
+
+Activate it:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+## Dataset
+
+Dataset: Kaggle Malicious URLs Dataset  
+Source: https://www.kaggle.com/datasets/sid321axn/malicious-urls-dataset
+
+The original dataset contains 651,191 records across benign, defacement, phishing, and malware categories.
+
+For this binary classification study, only benign and phishing records are retained.
+
+The preprocessing script removes conflicting URL labels and duplicate URLs.
+
+The resulting binary dataset contains 522,160 unique records:
+
+- Legitimate: 428,074
+- Phishing: 94,086
+
+The expected original dataset path is:
+
+`data/raw/malicious_phish.csv`
+
+Dataset licensing and redistribution permissions should be checked against the original source before distributing the raw file.
+
+## Dataset Preparation
+
+From the project root, run:
+
+```powershell
+python -m src.prepare_dataset
+```
+
+Expected processed dataset:
+
+`data/processed/phishing_binary.csv`
+
+## Feature Extraction
+
+Seven lexical features are used:
+
+1. URL length
+2. Hostname length
+3. Path length
+4. Dot count
+5. Hyphen count
+6. Digit count
+7. Explicit HTTPS indicator
+
+The current research parser supports analysis of URLs without an explicit scheme. However, the Streamlit input validator still requires `http://` or `https://`.
+
+This inconsistency is a known limitation.
+
+## Model Training
+
+Run:
+
+```powershell
+python -m src.model_training
+```
+
+The script trains:
 
 - Logistic Regression
 - Decision Tree
 - Random Forest
 
-## Planned Evaluation Metrics
+The demonstrated balanced experiment uses 20,000 URLs, including 10,000 legitimate and 10,000 phishing records.
 
-- Accuracy
-- Precision
-- Recall
-- F1-score
-- False-positive rate
-- Confusion matrix
+The experiment uses random seed 42 and an 80/20 train/test split.
 
-## Repository Structure
+### Observed Results
 
-```text
-phishing-url-detection/
-├── app/
-│   ├── __init__.py
-│   └── main.py
-├── src/
-│   ├── __init__.py
-│   ├── data_pipeline.py
-│   ├── feature_extraction.py
-│   ├── model_training.py
-│   └── prediction.py
-├── data/
-│   ├── raw/
-│   └── processed/
-├── models/
-├── tests/
-│   └── test_smoke.py
-├── docs/
-│   ├── architecture.md
-│   ├── known_issues.md
-│   └── risk_issue_log.md
-├── screenshots/
-├── AI_USAGE_LOG.md
-├── CHANGELOG.md
-├── engineering_log.md
-├── README.md
-├── requirements.txt
-└── .gitignore
+| Model | Accuracy | Precision | Recall | F1 |
+|---|---|---|---|---|
+| Logistic Regression | 72.80% | 69.44% | 81.45% | 74.97% |
+| Decision Tree | 82.73% | 84.39% | 80.30% | 82.30% |
+| Random Forest | 84.70% | 84.80% | 84.55% | 84.68% |
+
+These are experimental results, not claims of production performance.
+
+The Random Forest model is saved to:
+
+`models/random_forest.joblib`
+
+The comparison results are saved to:
+
+`results/hs4_model_comparison.csv`
+
+## Running the Streamlit Application
+
+From the project root, run:
+
+```powershell
+python -m streamlit run app/main.py
 ```
 
-## Environment
+Open:
 
-Recommended:
+http://localhost:8501
 
-- Python 3.11+
-- Git
-- Visual Studio Code or another Python IDE
-- Internet connection for initial package installation
+Enter a URL beginning with `http://` or `https://` and select **Analyze URL**.
 
-## Setup Instructions
+The application extracts lexical features, loads the saved Random Forest classifier, and displays a classification.
 
-### 1. Clone the repository
+## Expected Outputs
 
-```bash
-git clone <YOUR-GITHUB-REPOSITORY-URL>
-cd phishing-url-detection
+Successful execution produces:
+
+- Dataset preparation results
+- Model comparison metrics
+- A saved Random Forest classifier
+- Automated test results
+- Streamlit phishing/legitimate classifications
+
+The application does not visit submitted URLs or execute website content.
+
+## Automated Tests
+
+Run:
+
+```powershell
+python -m pytest -q
 ```
 
-### 2. Create a virtual environment
+During Hard Stop 5 verification, the existing test suite returned:
 
-Windows:
+`2 passed`
 
-```bash
-python -m venv venv
-venv\Scripts\activate
+This confirms the executed tests passed, but does not establish exhaustive input coverage or classifier reliability.
+
+## Clean-Environment Reproducibility
+
+A second Python virtual environment named `venv_clean` was created on November 8, 2026.
+
+Dependencies were installed using:
+
+```powershell
+.\venv_clean\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-macOS/Linux:
+The test suite was executed using:
 
-```bash
-python3 -m venv venv
-source venv/bin/activate
+```powershell
+.\venv_clean\Scripts\python.exe -m pytest -q
 ```
 
-### 3. Install dependencies
+Two tests passed in the clean environment.
 
-```bash
-pip install -r requirements.txt
+The saved Random Forest model also loaded successfully and reported seven input features.
+
+This verifies dependency installation, test execution, and model loading in a fresh environment within the existing project folder. A completely independent repository checkout remains a separate verification task.
+
+## Known Limitations
+
+- The model uses only seven lexical features.
+- The balanced experiment does not represent real-world phishing prevalence.
+- A source-like distribution experiment produced 55.34% phishing recall.
+- Exact-hostname overlap was investigated, but registered-domain separation remains pending.
+- The application requires explicit HTTP/HTTPS schemes, while experimental preprocessing accepts some scheme-less URLs.
+- The model classified `https://example.com` as phishing during the demonstrated application test.
+- Only two automated tests passed in the current suite.
+- Independent final model acceptance and supervisor approval have not been established.
+- No production deployment, live URL crawling, or external threat-intelligence API is included.
+
+## Troubleshooting
+
+**ModuleNotFoundError**
+
+Confirm the correct virtual environment is active and install the dependencies using `requirements.txt`.
+
+**Saved model not found**
+
+Run:
+
+```powershell
+python -m src.model_training
 ```
 
-### 4. Start the baseline application
+Then confirm that `models/random_forest.joblib` exists.
 
-```bash
-streamlit run app/main.py
-```
+**Streamlit does not open**
 
-### 5. Run the smoke test
+Run the application from the root directory and check the terminal for the local URL and any error messages.
 
-```bash
-pytest -q
-```
+**URL rejected**
 
-Expected result:
+Enter a complete URL beginning with `http://` or `https://`.
 
-```text
-1 passed
-```
+**Unexpected classification**
 
-## Minimal Baseline Execution Path
+The model can produce false positives and false negatives. Predictions should be treated as experimental outputs, not security guarantees.
 
-```text
-URL Input
-   ↓
-URL Validation
-   ↓
-Basic Lexical Feature Extraction
-   ↓
-Placeholder Prediction Layer
-   ↓
-Streamlit Output
-```
+## Reproducibility and Academic Integrity
 
-## Branch Strategy
+The project uses public labeled data and local Python execution.
 
-- `main` — stable, reviewable baseline
-- `develop` — integration branch for active sprint work
-- `feature/*` — isolated implementation work
-- `docs/*` — larger documentation changes
+ChatGPT assisted with project planning, code refinement, debugging, documentation, and interpretation. Development actions, terminal execution, validation, and reported observations remain the student's responsibility.
 
-## Naming Conventions
+See `AI_USAGE_LOG.md` for the detailed AI assistance record.
 
-- Python files and functions: `snake_case`
-- Classes: `PascalCase`
-- Git branches: lowercase with hyphens or slashes
-- Documentation files: descriptive lowercase names where practical
-- Model artifacts: versioned names such as `random_forest_v1.joblib`
+## Security and Scope
 
-## Artifact Storage Conventions
+The project does not perform live crawling, execute malicious URLs, or use commercial threat-intelligence APIs.
 
-- Raw source data: `data/raw/`
-- Processed data: `data/processed/`
-- Trained models: `models/`
-- Submission screenshots: `screenshots/`
-- Technical notes and logs: `docs/` plus root engineering logs
-
-Large datasets and generated model artifacts should not be committed unless required.
-
-## Baseline Release
-
-Recommended tag:
-
-```bash
-git tag -a v0.1.0-baseline -m "Pre-Hard Stop 3 implementation baseline"
-git push origin v0.1.0-baseline
-```
-
-## Scope Boundary
-
-This academic prototype excludes:
-
-- Malware execution
-- Unrestricted live web crawling
-- Commercial threat-intelligence integration
-- Production deployment
-
-## Academic Integrity
-
-AI-supported assistance is documented in `AI_USAGE_LOG.md`.
-
-
-
-## Hard Stop 3 - Early Implementation Validation
-
-**Date:** October 9, 2026
-
-### Implementation Status
-
-The project has progressed beyond the initial
-implementation skeleton. The current Python
-pipeline supports CSV dataset loading, URL
-validation, basic lexical feature extraction,
-and execution of the placeholder prediction stage.
-
-### Validated Components
-
-- Streamlit application starts successfully.
-- CSV loader reads six synthetic sample URLs.
-- URL validation filters malformed inputs.
-- Feature extraction produces seven numerical features.
-- Integration test passes using pytest.
-- Full baseline workflow processes six sample URLs.
-- All six records reach the placeholder prediction stage.
-
-### Validation Results
-
-- Sample dataset: data/sample_urls.csv
-- Records processed: 6
-- Features extracted per URL: 7
-- Integration test result: 1 passed
-- Full baseline workflow: Completed
-
-These results demonstrate basic technical
-functionality, not phishing detection accuracy.
-
-### Reproduce the Validation
-
-From the project root, activate the virtual
-environment and install the dependencies:
-
-    python -m venv venv
-    .\venv\Scripts\Activate.ps1
-    python -m pip install -r requirements.txt
-
-Run the Streamlit application:
-
-    python -m streamlit run app/main.py
-
-Run the integration test:
-
-    python -m pytest tests/test_pipeline_integration.py -v -s
-
-### Current Limitations
-
-- The sample dataset contains synthetic records.
-- Model training is not implemented.
-- Logistic Regression, Decision Tree, and
-  Random Forest models are pending.
-- The prediction module currently returns
-  an operational status message.
-- Classification accuracy, precision, recall,
-  F1-score, and false-positive rate have
-  not yet been measured.
-- Dataset labels and preprocessing require
-  further validation using real labeled data.
-
-### Next Implementation Priorities
-
-1. Acquire and profile a public labeled URL dataset.
-2. Validate label encoding and dataset quality.
-3. Implement the model training workflow.
-4. Evaluate trained models using held-out data.
-5. Connect model predictions to the Streamlit UI.
-6. Expand automated tests and performance reporting.
-
-### Validation Evidence
-
-Evidence screenshots are stored in
-the screenshots/ folder:
-
-- HS3_Data_Loading_Success.png
-- HS3_Feature_Extraction_Success.png
-- HS3_Pipeline_Integration_Passed.png
-- HS3_Full_Baseline_Workflow.png
-
-These filenames refer to evidence that must be
-saved in the repository before final submission.
+It is intended for academic research and controlled evaluation only.
