@@ -1,0 +1,14 @@
+{
+  "accuracy": 0.89925,
+  "precision": 0.83125,
+  "recall": 0.5533980582524272,
+  "f1": 0.6644462947543713,
+  "false_positive_rate": 0.024702653247941447,
+  "true_negative": 3198,
+  "false_positive": 81,
+  "false_negative": 322,
+  "true_positive": 399,
+  "training_rows": 16000,
+  "testing_rows": 4000,
+  "random_seed": 42
+}
