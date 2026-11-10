@@ -113,3 +113,87 @@ The independent checkout confirmed:
 Full preprocessing and model-training reproduction
 from the external Kaggle dataset has not yet been
 verified in this checkout.
+
+## Hard Stop 5 — Full Workflow Reproduction
+
+Verification date: November 10, 2026
+
+Environment:
+Independent clone of the hard-stop-5 GitHub branch.
+Windows, Python 3.11.9.
+
+### Dataset Preparation
+
+Command:
+python -m src.prepare_dataset
+
+Result:
+- Total processed URLs: 522,160
+- Legitimate URLs: 428,074
+- Phishing URLs: 94,086
+- Remaining duplicate URLs: 0
+
+Status: Passed
+
+### Model Training
+
+Command:
+python -m src.model_training
+
+The following models trained successfully:
+
+- Logistic Regression: 72.80% accuracy
+- Decision Tree: 82.73% accuracy
+- Random Forest: 84.70% accuracy
+
+Training used 20,000 balanced examples and
+random seed 42.
+
+Status: Passed
+
+### Hard Stop 5 Experimental Reproduction
+
+Command:
+python -m src.hs5_experiment
+
+Baseline Random Forest:
+- Accuracy: 84.70%
+- Recall: 84.55%
+- False-positive rate: 15.15%
+
+Weighted Random Forest:
+- Accuracy: 80.95%
+- Recall: 65.95%
+- False-positive rate: 4.05%
+
+The weighted model reduced false positives,
+but also reduced phishing recall.
+
+Both models incorrectly classified five
+legitimate homepage URLs as phishing.
+
+The empty-path evaluation contained 481 URLs,
+of which 479 were labeled phishing and two
+were labeled legitimate.
+
+Both legitimate empty-path examples were
+incorrectly classified as phishing.
+
+Status: Passed — Results reproduced.
+
+### Final Verification Summary
+
+The following were independently reproduced:
+
+- Dataset preprocessing
+- Model training
+- Model evaluation
+- Hard Stop 5 experimental comparison
+
+The external Kaggle dataset was supplied
+separately and was not downloaded automatically
+by the repository.
+
+The system remains a research prototype with
+known false-positive and generalization
+limitations.
