@@ -1,0 +1,6 @@
+url,baseline_prediction,weighted_prediction
+https://www.google.com,1,1
+https://www.microsoft.com,1,1
+https://www.amazon.com,1,1
+https://www.wikipedia.org,1,1
+https://www.github.com,1,1
