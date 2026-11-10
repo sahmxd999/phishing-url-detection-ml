@@ -51,3 +51,66 @@ The clean-environment test confirmed dependency installation, model loading, and
 ChatGPT was used as a technical support and drafting tool, not as an independent evaluator of experimental results.
 
 I executed the commands, modified and saved the local project files, inspected the outputs, and captured the supporting evidence. I remain responsible for reviewing AI-assisted code and documentation, interpreting the results, acknowledging limitations, and ensuring the submitted work accurately represents the experiments performed.
+
+## Hard Stop 5 — November 10, 2026
+
+**Tool:** ChatGPT
+
+### AI Assistance
+
+ChatGPT assisted with:
+
+- Diagnosing false-positive URL predictions.
+- Investigating lexical feature importance.
+- Analyzing empty-path URL label imbalance.
+- Designing a controlled class-weight experiment.
+- Debugging a Pandas index-alignment error.
+- Preparing Git commands and repository updates.
+- Writing dataset reproduction instructions.
+- Organizing the reproducibility verification.
+- Drafting documentation and evidence descriptions.
+
+### Student Execution and Verification
+
+I personally executed the suggested commands
+in Visual Studio Code and reviewed the results.
+
+I verified:
+
+- Independent GitHub repository cloning.
+- Python environment and dependency installation.
+- Two passing automated tests.
+- Saved Random Forest model loading.
+- Streamlit application execution.
+- Dataset preprocessing of 522,160 URLs.
+- Training of three classifiers.
+- Baseline and weighted-model evaluation.
+
+### Experimental Results
+
+Baseline Random Forest:
+- Accuracy: 84.70%
+- Recall: 84.55%
+- False-positive rate: 15.15%
+
+Weighted Random Forest:
+- Accuracy: 80.95%
+- Recall: 65.95%
+- False-positive rate: 4.05%
+
+The weighted model reduced false positives
+but also reduced phishing recall.
+
+Both models incorrectly classified five
+legitimate website homepages as phishing.
+
+### Academic Integrity
+
+ChatGPT provided suggestions, explanations,
+code assistance, and documentation drafts.
+
+I executed and verified the experiments locally,
+reviewed the outputs, and retained evidence.
+
+AI assistance is distinguished from my actual
+execution and verification of the project.

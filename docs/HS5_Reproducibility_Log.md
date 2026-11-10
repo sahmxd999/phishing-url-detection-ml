@@ -110,9 +110,7 @@ The independent checkout confirmed:
 - Saved model loading
 - Streamlit application execution
 
-Full preprocessing and model-training reproduction
-from the external Kaggle dataset has not yet been
-verified in this checkout.
+Full dataset preprocessing, model training, and Hard Stop 5 experimental reproduction were subsequently verified in the independent GitHub checkout on November 10, 2026. The detailed results are recorded in the Full Workflow Reproduction section below.
 
 ## Hard Stop 5 — Full Workflow Reproduction
 

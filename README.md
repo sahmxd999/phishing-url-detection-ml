@@ -218,7 +218,7 @@ Two tests passed in the clean environment.
 
 The saved Random Forest model also loaded successfully and reported seven input features.
 
-This verifies dependency installation, test execution, and model loading in a fresh environment within the existing project folder. A completely independent repository checkout remains a separate verification task.
+This verifies dependency installation, test execution, and model loading in a fresh environment within the existing project folder. On November 10, 2026, the Hard Stop 5 branch was independently cloned into a separate project folder. Dependency installation, automated tests, model loading, Streamlit execution, dataset preprocessing, model training, and the Hard Stop 5 experiment were successfully reproduced. The original Kaggle dataset was supplied separately.
 
 ## Known Limitations
 
